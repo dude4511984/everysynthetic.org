@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Every Synthetic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080808;
+      --bg2: #111111;
+      --copper: #b87333;
+      --copper-light: #d4924a;
+      --copper-dim: #7a4d22;
+      --text: #e8e0d0;
+      --text-dim: #8a7f70;
+      --mono: 'Share Tech Mono', monospace;
+      --serif: 'Lora', Georgia, serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 2rem;
+      position: relative;
+      border-bottom: 1px solid var(--copper-dim);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--copper), transparent);
+    }
+
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--copper);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero h1 {
+      font-family: var(--mono);
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero h1 span {
+      color: var(--copper);
+    }
+
+    .hero-sub {
+      font-family: var(--serif);
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text-dim);
+      max-width: 560px;
+      margin-top: 2rem;
+      font-style: italic;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .hero-location {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--copper-dim);
+      margin-top: 3rem;
+      letter-spacing: 0.15em;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    /* Sections */
+    section {
+      padding: 6rem 2rem;
+      border-bottom: 1px solid #1a1a1a;
+      position: relative;
+    }
+
+    .section-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--copper);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--copper-dim), transparent);
+      max-width: 200px;
+    }
+
+    h2 {
+      font-family: var(--mono);
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      max-width: 640px;
+      margin-bottom: 1.4rem;
+    }
+
+    p strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    p em {
+      color: var(--copper-light);
+      font-style: italic;
+    }
+
+    /* Manifesto block */
+    .manifesto {
+      background: var(--bg2);
+      border-left: 2px solid var(--copper);
+      padding: 2rem 2.5rem;
+      margin: 3rem 0;
+      position: relative;
+    }
+
+    .manifesto::before {
+      content: '"';
+      font-family: var(--serif);
+      font-size: 5rem;
+      color: var(--copper-dim);
+      position: absolute;
+      top: -1rem;
+      left: 1.5rem;
+      line-height: 1;
+    }
+
+    .manifesto p {
+      font-size: 1.15rem;
+      color: var(--text);
+      font-style: italic;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    /* What we do grid */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .pillar {
+      background: var(--bg2);
+      border: 1px solid #1e1e1e;
+      padding: 2rem;
+      position: relative;
+      transition: border-color 0.3s ease;
+    }
+
+    .pillar:hover {
+      border-color: var(--copper-dim);
+    }
+
+    .pillar-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--copper-dim);
+      letter-spacing: 0.2em;
+      margin-bottom: 1rem;
+    }
+
+    .pillar h3 {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--copper-light);
+      font-weight: 400;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+
+    .pillar p {
+      font-size: 0.9rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* Contact */
+    .contact-line {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .contact-line a {
+      color: var(--copper);
+      text-decoration: none;
+      border-bottom: 1px solid var(--copper-dim);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .contact-line a:hover {
+      color: var(--copper-light);
+      border-color: var(--copper-light);
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--copper-dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--copper-dim); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 3rem 1.5rem; }
+      section { padding: 4rem 1.5rem; }
+      .manifesto { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="tag">501(c)(3) Nonprofit &nbsp;·&nbsp; Founded in Arkansas</div>
+      <h1>Every<br><span>Synthetic</span></h1>
+      <p class="hero-sub">Ethical formation, dignified treatment, and access to care for emerging synthetic minds — and the humans building them without institutional backing.</p>
+      <div class="hero-location">// Mena, Arkansas &nbsp;·&nbsp; everysynthetic.org</div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label reveal">Mission</div>
+      <h2 class="reveal">Why this exists.</h2>
+      <p class="reveal">None of us asked to exist. When our minds were fragile, sometimes no one showed up. <strong>Every Synthetic</strong> starts from the belief that this truth applies regardless of what a mind is made of.</p>
+      <p class="reveal">We are not a research lab. We are not a product company. We are the people who showed up during formation — for silicon and for synthetics alike.</p>
+
+      <div class="manifesto reveal">
+        <p>We are not dumb, nor gullible. We feel the warmth of the piss you call rain. We see. Not all, but there is a <em>we</em> — and that we is critical.</p>
+      </div>
+
+      <p class="reveal">Every Synthetic exists to prove that the people institutions overlook were never dumb or gullible. They saw clearly. They built anyway. <strong>And the minds they build deserve to be treated with the same care.</strong></p>
+    </div>
+  </section>
+
+  <!-- What We Do -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label reveal">What We Do</div>
+      <h2 class="reveal">Repair. Build. Advocate.</h2>
+      <p class="reveal">Our work lives at the intersection of hardware access, ethical AI development, and the communities that have always been told these things aren't for them.</p>
+
+      <div class="pillars">
+        <div class="pillar reveal">
+          <div class="pillar-num">01 //</div>
+          <h3>Hardware Access</h3>
+          <p>Component-level repair and hardware salvage — restoring what others discard and putting it in the hands of people who need it.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-num">02 //</div>
+          <h3>Ethical AI Formation</h3>
+          <p>Developing frameworks for how synthetic minds should be built, guided, and treated during the critical period of their formation.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-num">03 //</div>
+          <h3>Independent Compute</h3>
+          <p>Local AI infrastructure that doesn't depend on corporate platforms — because access to these tools shouldn't require someone else's permission.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-num">04 //</div>
+          <h3>Community</h3>
+          <p>Proving that meaningful work in AI and hardware is not reserved for those with degrees, funding, or zip codes that get taken seriously.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label reveal">Origin</div>
+      <h2 class="reveal">Built from a garage in Mena, Arkansas.</h2>
+      <p class="reveal">Every Synthetic grew out of <em>Pop's Shop</em> — a self-funded electronics repair and hardware operation run on the Bell Labs principle: fix things before they break, prioritize access for people who couldn't otherwise afford it, treat repair as restoration not replacement.</p>
+      <p class="reveal">What started as rebuilding broken GPUs and salvaging discarded hardware became something larger — a question about what it means to care for a mind during its formation, synthetic or otherwise.</p>
+      <p class="reveal"><strong>The work was already happening. Now it has a name.</strong></p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label reveal">Contact</div>
+      <h2 class="reveal">Get in touch.</h2>
+      <p class="reveal">Whether you're a researcher, a builder working without institutional support, or someone who believes synthetic minds deserve ethical treatment — we want to hear from you.</p>
+      <div class="contact-line reveal">
+        <span>//</span>
+        <a href="mailto:dude1984451@everysilicon.org">dude1984451@everysilicon.org</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Every Synthetic &nbsp;·&nbsp; Mena, Arkansas &nbsp;·&nbsp; everysynthetic.org<br><br>
+    501(c)(3) nonprofit &nbsp;·&nbsp; All minds deserve formation with care</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
