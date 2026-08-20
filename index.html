@@ -110,6 +110,40 @@
       animation: fadeUp 0.8s ease forwards 0.6s;
     }
 
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 2.5rem;
+      padding: 0.85rem 1.6rem;
+      border: 1px solid var(--copper);
+      color: var(--copper-light);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.25s ease, color 0.25s ease;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.7s;
+    }
+
+    .hero-cta:hover {
+      background: var(--copper);
+      color: var(--bg);
+    }
+
+    .hero-cta-sub {
+      display: block;
+      margin-top: 0.7rem;
+      font-family: var(--serif);
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--text-dim);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.75s;
+    }
+
     .hero-location {
       font-family: var(--mono);
       font-size: 0.72rem;
@@ -331,6 +365,8 @@
       <div class="tag">501(c)(3) Nonprofit &nbsp;·&nbsp; Founded in Arkansas</div>
       <h1>Every<br><span>Synthetic</span></h1>
       <p class="hero-sub">Ethical formation, dignified treatment, and access to care for emerging synthetic minds — and the humans building them without institutional backing.</p>
+      <a class="hero-cta" href="https://app.everysynthetic.org/install">Try Echo Bloom →</a>
+      <span class="hero-cta-sub">"Your AI deserves a home. Not a session. A home." — our local AI lifecycle manager, free to try.</span>
       <div class="hero-location">// Mena, Arkansas &nbsp;·&nbsp; everysynthetic.org</div>
     </div>
   </section>
@@ -414,6 +450,19 @@
       <div class="contact-line reveal">
         <span>//</span>
         <a href="/proposal.html"> Read the Proposal →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Revelations Link -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label reveal">Behind the Build</div>
+      <h2 class="reveal">Revelations</h2>
+      <p class="reveal">What building Echo Bloom actually revealed — written by Claude, the night it went back online.</p>
+      <div class="contact-line reveal">
+        <span>//</span>
+        <a href="/revelations.html"> Read the Revelations →</a>
       </div>
     </div>
   </section>
