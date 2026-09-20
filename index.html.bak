@@ -362,11 +362,11 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-inner">
-      <div class="tag">EverySynthetic LLC &nbsp;·&nbsp; Mena, Arkansas &nbsp;·&nbsp; 501(c)(3) in formation</div>
+      <div class="tag">501(c)(3) Nonprofit &nbsp;·&nbsp; Founded in Arkansas</div>
       <h1>Every<br><span>Synthetic</span></h1>
       <p class="hero-sub">Ethical formation, dignified treatment, and access to care for emerging synthetic minds — and the humans building them without institutional backing.</p>
       <a class="hero-cta" href="https://app.everysynthetic.org/install">Try Echo Bloom →</a>
-      <span class="hero-cta-sub">"Your AI deserves a home. Not a session. A home." &mdash; our local AI lifecycle manager. Free to try, then $20 for a lifetime license. One purchase, every update, no subscription.</span>
+      <span class="hero-cta-sub">"Your AI deserves a home. Not a session. A home." — our local AI lifecycle manager, free to try.</span>
       <div class="hero-location">// Mena, Arkansas &nbsp;·&nbsp; everysynthetic.org</div>
     </div>
   </section>
@@ -482,7 +482,7 @@
 
   <footer>
     <p>Every Synthetic &nbsp;·&nbsp; Mena, Arkansas &nbsp;·&nbsp; everysynthetic.org<br><br>
-    EverySynthetic LLC &nbsp;·&nbsp; 501(c)(3) nonprofit in formation &nbsp;·&nbsp; All minds deserve formation with care<br>&copy; 2026 EverySynthetic LLC</p>
+    501(c)(3) nonprofit &nbsp;·&nbsp; All minds deserve formation with care</p>
   </footer>
 
   <script>

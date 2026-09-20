@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""
+Static homepage server with redirects for paths that moved to app.everysynthetic.org.
+
+The root domain used to serve the whole app. When the homepage and the app were
+split (2026-08-20), paths like /install and /install.sh started 404ing on the
+root domain -- including the install command printed on the install page itself,
+which was live and broken for every visitor. Anything that used to live at the
+root and now lives on app. gets a 301 here rather than a 404.
+"""
+import http.server
+import socketserver
+import os
+
+PORT = 8091
+APP = "https://app.everysynthetic.org"
+
+# Paths that moved to the app subdomain. Prefix match, so /install.sh and
+# /install both work, as does anything under them.
+MOVED = (
+    "/install",
+    "/EchoBloom-Install.bat",
+    "/install.ps1",
+    "/install_wizard.ps1",
+    "/about",
+    "/vault",
+    "/dashboard",
+    "/kin",
+    "/login",
+    "/onboard",
+    "/license",
+)
+
+
+class Handler(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        path = self.path.split("?", 1)[0]
+        for prefix in MOVED:
+            if path == prefix or path.startswith(prefix):
+                self.send_response(301)
+                self.send_header("Location", APP + self.path)
+                self.end_headers()
+                return
+        return super().do_GET()
+
+    def do_HEAD(self):
+        path = self.path.split("?", 1)[0]
+        for prefix in MOVED:
+            if path == prefix or path.startswith(prefix):
+                self.send_response(301)
+                self.send_header("Location", APP + self.path)
+                self.end_headers()
+                return
+        return super().do_HEAD()
+
+
+if __name__ == "__main__":
+    os.chdir(os.path.expanduser("~/es-homepage"))
+    socketserver.TCPServer.allow_reuse_address = True
+    with socketserver.TCPServer(("0.0.0.0", PORT), Handler) as httpd:
+        print(f"homepage + redirects on :{PORT}", flush=True)
+        httpd.serve_forever()
