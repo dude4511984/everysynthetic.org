@@ -29,15 +29,34 @@ APP = "https://app.everysynthetic.org"
 
 class Handler(http.server.SimpleHTTPRequestHandler):
 
+    def _denied(self, path: str) -> bool:
+        """Never serve dotfiles/dot-directories (.git, .bak-*), backups, or sources.
+
+        The first version of the serve-what-exists rule exposed .git/config,
+        .bak-* snapshots, index.html.bak and this file itself on the public
+        domain. Nothing secret was in them, but a static server should not
+        hand out its own repository.
+        """
+        for seg in path.split("/"):
+            if seg.startswith(".") or ".bak" in seg or seg.endswith((".py", ".pyc", ".sh", "~")):
+                return True
+        return False
+
     def _served_locally(self) -> bool:
         """True when this request maps to a file that actually exists here."""
         path = self.path.split("?", 1)[0].split("#", 1)[0]
+        if self._denied(path):
+            return False
         if path in ("", "/"):
             path = "/index.html"
         # translate_path handles URL-decoding and blocks .. traversal.
         return os.path.isfile(self.translate_path(path))
 
     def _redirected(self) -> bool:
+        path = self.path.split("?", 1)[0].split("#", 1)[0]
+        if self._denied(path):
+            self.send_error(404)
+            return True
         if self._served_locally():
             return False
         self.send_response(301)
